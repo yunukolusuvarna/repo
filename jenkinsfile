@@ -3,7 +3,8 @@ pipeline{
     stages{
         stage('clone-repo'){
             steps{
-                git url:'https://github.com/yunukolusuvarna/repo.git'
+                git url:'https://github.com/yunukolusuvarna/repo.git',
+                branch :'main'
             }
         }
         stage('build'){
