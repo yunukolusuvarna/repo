@@ -1,39 +1,40 @@
-pipeline {
+pipeline{
     agent any
-
-    stages {
-        stage('Clone-Repo') {
-	    	steps {
-	        	git url: 'https:/github.com/yunukolusuvarna/newproject.git'
-	    	}
-        }
-	stage('Build') {
-		steps {
-			sh 'mvn install'
-		}
-	}	
- 
-	stage ('Compile'){
-	        steps {
-			sh 'mvn clean compile'
-                }
-	}
-
-	stage('Run Tests') {
-	    steps {
-	       sh 'mvn test'
-	    }
-	}
-
-        stage('Package as WAR') {
-            steps {
-                sh 'mvn package'
+    stages{
+        stage('clone-repo'){
+            steps{
+                git url:'https://github.com/yunukolusuvarna/repo.git'
+                
             }
         }
-	stage('Deployment') {
-	   steps {
-		sh 'sshpass -p vpath scp target/gamutkart.war vpath@172.31.16.232:/home/vpath/apache-tomcat-8.5.100/webapps'
-	}
+        stage('build'){
+            steps{
+                sh'mvn install'
+                
+            }
+        }
+        stage('compile'){
+            steps{
+                sh'mvn package'
+            }
+            
+        }
+        stage('tests'){
+            steps{
+                sh'mvn test'
+            }
+            
+        }
+        stage('package as war'){
+            steps{
+                sh'mvn package'
+            }
+            
+        }stage('deployment'){
+            steps{
+                sh'sshpass -p vpath scp target/gamutkart.war vpath@13.55.138.141:/home/vpath/apache-tomcat-8.5.100/webapps'
+            }
+            
+        }
     }
-}
 }
