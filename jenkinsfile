@@ -4,7 +4,7 @@ pipeline {
         stage('clone-repo') {
             steps {
                 // Correct checkout step
-                checkout scm 'https://github.com/yunukolusuvarna/repo.git'
+                git url: 'https://github.com/yunukolusuvarna/repo.git', branch: 'main'
             }
         }
         stage('build') {
